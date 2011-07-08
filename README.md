@@ -13,6 +13,13 @@ How?
 
 and BAM! - your project should now _reference_ Ponder.cs, thus allowing it to reside in your `lib` folder and be updated like you update all of your other dependencies.
 
+Now you should be able to do stuff like this:
+
+```C#
+var path = Reflect.Path<Person>(p => p.FirstName.Length);
+// path is "FirstName.Length"
+```
+
 License
 ====
 
