@@ -20,6 +20,8 @@ var path = Reflect.Path<Person>(p => p.FirstName.Length);
 // path is "FirstName.Length"
 ```
 
+Nifty, huh?
+
 License
 ====
 
