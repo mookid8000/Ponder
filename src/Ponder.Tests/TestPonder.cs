@@ -9,21 +9,35 @@ namespace Ponder.Tests
         [Test]
         public void CanReflectOnPropertyName_ReferenceType()
         {
-            Assert.AreEqual("ReferenceTypeProperty", Reflect.PropertyName<SomeClass>(p => p.ReferenceTypeProperty));
+            Assert.AreEqual("ReferenceTypeProperty", Reflect.Path<SomeClass>(p => p.ReferenceTypeProperty));
         }
 
         [Test]
         public void CanReflectOnPropertyName_ValueTypes()
         {
-            Assert.AreEqual("ValueTypeProperty", Reflect.PropertyName<SomeClass>(p => p.ValueTypeProperty));
-            Assert.AreEqual("AnotherValueTypeProperty", Reflect.PropertyName<SomeClass>(p => p.AnotherValueTypeProperty));
+            Assert.AreEqual("ValueTypeProperty", Reflect.Path<SomeClass>(p => p.ValueTypeProperty));
+            Assert.AreEqual("AnotherValueTypeProperty", Reflect.Path<SomeClass>(p => p.AnotherValueTypeProperty));
         }
 
         [Test]
         public void CanReflectOnNestedPropertyNames_MixedTypes()
         {
             Assert.AreEqual("Embedded.Embedded.AnotherValueTypeProperty.Year",
-                Reflect.PropertyName<SomeClass>(p => p.Embedded.Embedded.AnotherValueTypeProperty.Year));
+                            Reflect.Path<SomeClass>(p => p.Embedded.Embedded.AnotherValueTypeProperty.Year));
+        }
+
+        [Test, Ignore("not implemented yet")]
+        public void CanReflectOnNestedPropertyNamesAndMethods()
+        {
+            Assert.AreEqual("GetSomeClass().Embedded.ReferenceTypeProperty",
+                            Reflect.Path<SomeClass>(p => p.GetSomeClass().Embedded.ReferenceTypeProperty));
+        }
+
+        [Test, Ignore("not implemented yet")]
+        public void CanReflectOnNestedPropertyNamesAndMethodsIncludingArguments()
+        {
+            Assert.AreEqual("GetSomeClassAdvanced(\"hello world!\").Embedded.ReferenceTypeProperty",
+                            Reflect.Path<SomeClass>(p => p.GetSomeClassAdvanced("hello world!").Embedded.ReferenceTypeProperty));
         }
 
         class SomeClass
@@ -32,6 +46,14 @@ namespace Ponder.Tests
             public int ValueTypeProperty { get; set; }
             public DateTime AnotherValueTypeProperty { get; set; }
             public SomeClass Embedded { get; set; }
+            public SomeClass GetSomeClass()
+            {
+                return null; //<not important :)
+            }
+            public SomeClass GetSomeClassAdvanced(string someParameter)
+            {
+                return null;
+            }
         }
     }
 }

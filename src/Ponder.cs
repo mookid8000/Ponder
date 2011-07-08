@@ -5,7 +5,7 @@ namespace Ponder
 {
     public class Reflect
     {
-        public static string PropertyName<T>(Expression<Func<T, object>> expression)
+        public static string Path<T>(Expression<Func<T, object>> expression)
         {
             return GetPropertyName(expression);
         }
