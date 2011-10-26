@@ -7,6 +7,28 @@ namespace Ponder.Tests
     public class TestPonder
     {
         [Test]
+        public void GetsNullIfDottingGoesThroughNonExistantProperty()
+        {
+            Assert.IsNull(Reflect.Value(new SomeClass(), "ThisPropertyDoesNotExist"));
+            Assert.IsNull(Reflect.Value(new SomeClass(), "ThisPropertyDoesNotExist.TwoLevelsDeepNoErrors"));
+        }
+
+        [Test]
+        public void CanGetValue()
+        {
+            Assert.AreEqual("someString", Reflect.Value(new SomeClass {ReferenceTypeProperty = "someString"},
+                                                        "ReferenceTypeProperty"));
+        }
+
+        [Test]
+        public void CanGetValuesThroughMultipleLevels()
+        {
+            var somevalue = "someValue";
+            Assert.AreEqual(somevalue.Length, Reflect.Value(new SomeClass {ReferenceTypeProperty = somevalue},
+                                                            "ReferenceTypeProperty.Length"));
+        }
+
+        [Test]
         public void CanReflectOnPropertyName_ReferenceType()
         {
             Assert.AreEqual("ReferenceTypeProperty", Reflect.Path<SomeClass>(p => p.ReferenceTypeProperty));
