@@ -23,7 +23,7 @@ namespace Ponder.Tests
         [Test]
         public void CanGetValuesThroughMultipleLevels()
         {
-            var somevalue = "someValue";
+            const string somevalue = "someValue";
             Assert.AreEqual(somevalue.Length, Reflect.Value(new SomeClass {ReferenceTypeProperty = somevalue},
                                                             "ReferenceTypeProperty.Length"));
         }
