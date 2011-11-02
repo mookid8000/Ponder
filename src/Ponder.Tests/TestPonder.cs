@@ -7,6 +7,12 @@ namespace Ponder.Tests
     public class TestPonder
     {
         [Test]
+        public void GetsNullIfDottingGoesThroughNullReferences()
+        {
+            Assert.IsNull(Reflect.Value(new SomeClass(), "Embedded.ReferenceTypeProperty"));
+        }
+
+        [Test]
         public void GetsNullIfDottingGoesThroughNonExistantProperty()
         {
             Assert.IsNull(Reflect.Value(new SomeClass(), "ThisPropertyDoesNotExist"));
